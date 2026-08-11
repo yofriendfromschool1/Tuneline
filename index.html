@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tuneline — Music for Every Age</title>
 
-
   <link rel="icon" href="https://raw.githubusercontent.com/yofriendfromschool1/Tuneline/refs/heads/main/favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,8 +106,8 @@
     .zdesc { color: var(--mut); font-size: 14px; max-width: 460px; line-height: 1.55; }
     .zr { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
     .caprow { display: flex; align-items: center; gap: 10px; }
-    .cap { width: 120px; height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; }
-    .cap i { display: block; height: 100%; width: 100%; background: var(--acc); border-radius: 99px; }
+    .cap { width: 140px; height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; }
+    .cap i { display: block; height: 100%; width: 0%; background: var(--acc); border-radius: 99px; transition: width .3s; }
     .capn { font-family: var(--mono); font-size: 9.5px; letter-spacing: 1.5px; color: var(--mut); }
     .zbtns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
     .shuffle, .loadmp3 {
@@ -162,6 +161,37 @@
       content: ""; display: block; height: 5px; width: 150px; margin-top: 14px; opacity: .5;
       background: repeating-linear-gradient(-45deg, var(--bass) 0 7px, transparent 7px 14px);
     }
+
+    /* ---------- empty placeholder rows (slots 51–500) ---------- */
+    .track-empty {
+      opacity: .38;
+      border: 1px dashed var(--line);
+      background: transparent;
+      cursor: default;
+    }
+    .track-empty:hover {
+      opacity: .65;
+      background: rgba(255, 255, 255, .015);
+      transform: none;
+      cursor: default;
+    }
+    .track-empty .tt {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--mut);
+    }
+    .track-empty .ta {
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+    .track-empty .tdur {
+      color: var(--mut);
+      opacity: .6;
+    }
+    .track-empty .pl, .track-empty .eq { display: none !important; }
+    .track-empty .idx { display: inline !important; }
 
     /* ========== 5. FOOTER ========== */
     footer {
@@ -240,7 +270,6 @@
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* ========== 8. MODALS & DROP VEIL ========== */
-    /* NOTE: no backdrop-filter here on purpose — it can break the YouTube player (Error 153) */
     .modal {
       position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
       background: rgba(5, 8, 12, .82);
@@ -293,7 +322,7 @@
 <body>
 
   <header class="top">
-    <a class="brand" href="#top"><b>Tuneline</b><span>170 TRACKS</span></a>
+    <a class="brand" href="#top"><b>Tuneline</b><span>170 TRACKS · 2000 SLOTS</span></a>
     <nav class="nav">
       <a href="#kids"><em style="color:var(--kids)">●</em>3–8</a>
       <a href="#tween"><em style="color:var(--tween)">●</em>9–13</a>
@@ -304,29 +333,27 @@
   </header>
 
   <div class="strip" id="top">
-    <span>REAL SONGS · REAL EQUALIZER — MP3s, LINKS & FINDS SAVE TO THIS DEVICE</span>
+    <span>500 SLOTS PER ZONE — 50 ORIGINAL + 450 EMPTY FOR YOUR MP3s / LINKS / FINDS</span>
     <span><i class="dot"></i>TRUE FFT · YT EMBEDS · ARCHIVE FINDER</span>
   </div>
 
   <main id="zones"></main>
 
   <footer>
-    <span>Tuneline · 50 TRACKS PER ZONE · EXTREME BASS CAPPED AT 20</span>
+    <span>Tuneline · 500 SLOTS PER ZONE · FIRST 50 POPULATED · REST EMPTY</span>
     <span>MP3s · LINKS · FINDS PERSIST LOCALLY · ✕ REMOVES · DROP MP3s ANYWHERE</span>
   </footer>
 
   <input type="file" id="fileIn" accept="audio/*" multiple hidden>
   <div class="toast" id="toast"></div>
 
-  <!-- add-link modal -->
   <div class="modal" id="linkModal">
     <div class="mbox">
       <h3>ADD A LINK <span id="lmZone"></span></h3>
       <p class="mnote">
         Paste a direct audio link (mp3 / ogg / wav / m4a). If the host allows it, we download the file
         and save it offline on your device; otherwise it's kept as a streaming link.
-        YouTube links are added too — they play through YouTube's official embedded player
-        (videos can't be converted to MP3 here).
+        YouTube links are added too — they play through YouTube's official embedded player.
       </p>
       <div class="mrow">
         <input id="linkIn" type="url" placeholder="https://…/song.mp3   or   https://youtube.com/watch?v=…">
@@ -338,7 +365,6 @@
     </div>
   </div>
 
-  <!-- legal real-music finder (Internet Archive) -->
   <div class="modal" id="findModal">
     <div class="mbox">
       <h3>FIND REAL MUSIC <span id="fmZone"></span></h3>
@@ -356,7 +382,6 @@
     </div>
   </div>
 
-  <!-- youtube embed modal (attributes match YouTube's official Share → Embed code) -->
   <div class="modal" id="ytModal">
     <div class="mbox wide">
       <div class="ythead">
@@ -370,15 +395,13 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <p class="mnote">
-        Streams via YouTube's official embedded player — press play inside it. If a video still shows
-        a player error, its owner may block embedding (or your browser blocks embeds from local files):
-        use "YOUTUBE ↗" to watch it on the site. Want it offline? If you own the rights to a song,
-        download the MP3 yourself and drag & drop it anywhere on this page.
+        Streams via YouTube's official embedded player — press play inside it. If a video shows a
+        player error, use "YOUTUBE ↗" to watch it on the site. Want it offline? Drag & drop a downloaded
+        MP3 anywhere on this page.
       </p>
     </div>
   </div>
 
-  <!-- drag & drop overlay -->
   <div class="dropveil" id="dropveil"><span>DROP MP3s → ADD TO <b id="dvZone">…</b></span></div>
 
   <div class="player off" id="player">
@@ -530,20 +553,21 @@
     };
 
     var LIB = {
-      kids:  { name: "Little Ones",  ages: "AGES 3–8", tag: "NURSERY · SING-ALONGS", cap: 50,
+      kids:  { name: "Little Ones",  ages: "AGES 3–8", tag: "NURSERY · SING-ALONGS", cap: 500,
         desc: "Real nursery-rhyme melodies performed live, plus gentle originals for the smallest ears." },
-      tween: { name: "Tweens", ages: "AGES 9–13", tag: "SCHOOL SONGBOOK · POP ORIGINALS", cap: 50,
+      tween: { name: "Tweens", ages: "AGES 9–13", tag: "SCHOOL SONGBOOK · POP ORIGINALS", cap: 500,
         desc: "The real folk & school songbook — Ode to Joy, Yankee Doodle and friends — plus clean pop-energy originals." },
-      adult: { name: "Adults", ages: "14+", tag: "CLASSICAL · EARLY JAZZ · LO-FI", cap: 50,
+      adult: { name: "Adults", ages: "14+", tag: "CLASSICAL · EARLY JAZZ · LO-FI", cap: 500,
         desc: "Real classical and early-jazz standards — Für Elise, The Entertainer, Canon in D — plus mellow originals." },
-      bass:  { name: "Extreme Bass", ages: "⚠ LOUD", tag: "DUBSTEP · RIDDIM · SUB-100Hz", cap: 20,
-        desc: "Certified speaker-breakers. Twenty drops, zero mercy. Check your volume before you hit play." }
+      bass:  { name: "Extreme Bass", ages: "⚠ LOUD", tag: "DUBSTEP · RIDDIM · SUB-100Hz", cap: 500,
+        desc: "Certified speaker-breakers. Check your volume before you hit play." }
     };
 
     var ORDER = ["kids", "tween", "adult", "bass"];
     var ZCOLORS = { kids: "#3ec9ff", tween: "#3ee6b8", adult: "#f2b25c", bass: "#ff4b45" };
     var activeZone = "kids";
 
+    /* Build tracks: first 50 (or 20 for bass) are populated, rest are empty placeholders, up to cap of 500 */
     ORDER.forEach(function (zone) {
       var L = LIB[zone];
       L.tracks = RAW[zone].map(function (title, i) {
@@ -559,6 +583,17 @@
                                 150 + ((i * 53 + 7) % 70)
         };
       });
+      /* expand to 500 total with empty placeholder slots */
+      while (L.tracks.length < L.cap) {
+        L.tracks.push({
+          title: "", origTitle: "",
+          artist: "",
+          kind: null, local: false, offline: false,
+          src: null, blob: null, yt: null, remoteUrl: null,
+          mel: null,
+          d: 0
+        });
+      }
     });
 
     function fmt(s) { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
@@ -566,28 +601,45 @@
     function cleanName(n) { var c = n.replace(/\.[^/.]+$/, "").replace(/_+/g, " ").trim(); return c || n; }
     function rowEl(g, i) { return document.querySelector('.track[data-g="' + g + '"][data-i="' + i + '"]'); }
     function scrollRow(g, i) { var r = rowEl(g, i); if (r) { r.scrollIntoView({ block: "center", behavior: "smooth" }); } }
-    function freeSlot(g) { var T = LIB[g].tracks; for (var i = 0; i < T.length; i++) { if (!T[i].kind) { return i; } } return -1; }
+    /* freeSlot only returns slots in the empty-expansion region (index >= original RAW count) so user additions never overwrite built-in songs */
+    function freeSlot(g) {
+      var L = LIB[g];
+      var start = RAW[g].length;
+      for (var i = start; i < L.tracks.length; i++) {
+        if (!L.tracks[i].kind) { return i; }
+      }
+      return -1;
+    }
     function parseYT(v) {
       var m = v.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/i);
       if (m) { return m[1]; }
       if (/^[a-zA-Z0-9_-]{11}$/.test(v)) { return v; }
       return null;
     }
+    function isEmptySlot(t) { return !t.origTitle && !t.kind; }
 
     /* ========== 3. BUILD ZONES ========== */
     var zonesEl = document.getElementById("zones");
 
     zonesEl.innerHTML = ORDER.map(function (zone, zi) {
       var L = LIB[zone];
+      var loaded = L.tracks.filter(function (t) { return !isEmptySlot(t); }).length;
       var rows = L.tracks.map(function (m, i) {
-        return '<button class="track' + (m.mel ? " mel" : "") + '" data-g="' + zone + '" data-i="' + i +
-          '" data-search="' + (m.title + " " + m.artist).toLowerCase() + '">' +
-          '<span class="num"><b class="idx">' + String(i + 1).padStart(2, "0") + '</b><b class="pl">▶</b>' +
+        var empty = isEmptySlot(m);
+        var idx = String(i + 1).padStart(3, "0");
+        var title = empty ? ("SLOT " + idx + " · DROP OR ADD") : esc(m.title);
+        var artist = empty ? "MP3 / LINK / FIND" : esc(m.artist);
+        var dur = empty ? "—" : fmt(m.d);
+        var cls = "track" + (m.mel ? " mel" : "") + (empty ? " track-empty" : "");
+        return '<button class="' + cls + '" data-g="' + zone + '" data-i="' + i +
+          '" data-search="' + ((m.title + " " + m.artist) || "").toLowerCase() + '">' +
+          '<span class="num"><b class="idx">' + idx + '</b><b class="pl">▶</b>' +
           '<span class="eq"><i></i><i></i><i></i><i></i></span></span>' +
-          '<span class="tmain"><span class="tt">' + esc(m.title) + '</span><span class="ta">' + esc(m.artist) + '</span></span>' +
-          '<span class="tdur">' + fmt(m.d) + '</span>' +
+          '<span class="tmain"><span class="tt">' + title + '</span><span class="ta">' + artist + '</span></span>' +
+          '<span class="tdur">' + dur + '</span>' +
           '<span class="rm" title="Remove saved item from this device">✕</span></button>';
       }).join("");
+      var pct = Math.round((loaded / L.cap) * 100);
       return '<section class="zone z-' + zone + '" id="' + zone + '"><div class="wrap zwrap">' +
         '<header class="zhead"><div class="zl">' +
         '<div class="znum">ZONE ' + String(zi + 1).padStart(2, "0") + '</div>' +
@@ -595,8 +647,8 @@
         '<div class="zmeta"><span class="chip ages">' + L.ages + '</span><span class="chip">' + L.tag + '</span>' +
         (zone === "bass" ? '<span class="chip warn">HEADPHONE LEVELS</span>' : "") + '</div>' +
         '<p class="zdesc">' + L.desc + '</p></div>' +
-        '<div class="zr"><div class="caprow"><div class="cap"><i></i></div>' +
-        '<span class="capn">' + L.tracks.length + '/' + L.cap + ' LOADED</span></div>' +
+        '<div class="zr"><div class="caprow"><div class="cap"><i style="width:' + pct + '%"></i></div>' +
+        '<span class="capn">' + loaded + '/' + L.cap + ' LOADED</span></div>' +
         '<div class="zbtns"><button class="shuffle" data-g="' + zone + '">⤨ SHUFFLE</button>' +
         '<button class="loadmp3 addfiles" data-g="' + zone + '">+ ADD MP3s</button>' +
         '<button class="loadmp3 addlink" data-g="' + zone + '">+ LINK</button>' +
@@ -608,11 +660,23 @@
       var row = rowEl(g, i);
       if (!row) { return; }
       var t = LIB[g].tracks[i];
-      row.querySelector(".tt").textContent = t.title;
-      row.dataset.search = (t.title + " " + t.artist).toLowerCase();
+      var empty = isEmptySlot(t);
+      var idx = String(i + 1).padStart(3, "0");
+      row.querySelector(".tt").textContent = empty ? ("SLOT " + idx + " · DROP OR ADD") : t.title;
+      row.querySelector(".ta").textContent = empty ? "MP3 / LINK / FIND" : t.artist;
+      row.querySelector(".tdur").textContent = empty ? "—" : fmt(t.d);
+      row.dataset.search = ((t.title + " " + t.artist) || "").toLowerCase();
       row.classList.toggle("local", !!t.local);
       row.classList.toggle("ytrow", t.kind === "yt");
       row.classList.toggle("mel", !!t.mel && !t.local && t.kind !== "yt");
+      row.classList.toggle("track-empty", empty);
+      /* update capacity bar when content changes */
+      var L = LIB[g];
+      var loaded = L.tracks.filter(function (x) { return !isEmptySlot(x); }).length;
+      var capRow = row.closest(".zone").querySelector(".capn");
+      var capFill = row.closest(".zone").querySelector(".cap i");
+      if (capRow) { capRow.textContent = loaded + "/" + L.cap + " LOADED"; }
+      if (capFill) { capFill.style.width = Math.round((loaded / L.cap) * 100) + "%"; }
     }
 
     /* ========== 4. INDEXEDDB PERSISTENCE ========== */
@@ -659,7 +723,7 @@
     function persist(g, i) {
       if (!idb) { return; }
       var t = LIB[g].tracks[i];
-      if (!t.kind) { return; }
+      if (isEmptySlot(t)) { return; }
       var en = { key: g + ":" + i, zone: g, index: i, name: t.title, kind: t.kind };
       if (t.kind === "yt") { en.yt = t.yt; }
       if (t.kind === "file" && t.blob) { en.blob = t.blob; }
@@ -988,16 +1052,12 @@
       if (mode === "file" && isFinite(audioL.duration)) { tTot.textContent = fmt(audioL.duration); }
     });
 
-    /* ---------- YouTube modal (official embed format) ---------- */
     var ytModal = document.getElementById("ytModal"),
       ytFrame = document.getElementById("ytFrame"),
       ytTitle = document.getElementById("ytTitle"),
       ytWatch = document.getElementById("ytWatch");
 
-    function ytEmbedUrl(id) {
-      /* same shape as YouTube's own Share → Embed snippet */
-      return "https://www.youtube-nocookie.com/embed/" + id;
-    }
+    function ytEmbedUrl(id) { return "https://www.youtube-nocookie.com/embed/" + id; }
     function openYT(t) {
       ytTitle.textContent = t.title;
       ytWatch.href = "https://www.youtube.com/watch?v=" + t.yt;
@@ -1020,6 +1080,8 @@
       if (AC.state === "suspended") { AC.resume(); }
       ACT.genre = g; ACT.i = i;
       var t = LIB[g].tracks[i];
+
+      if (isEmptySlot(t)) { toast("Empty slot — use + ADD MP3s, + LINK, + FIND, or drag & drop"); return; }
 
       if (t.kind === "yt") {
         mode = "yt"; ACT.state = "playing";
@@ -1083,8 +1145,14 @@
 
     function step(d) {
       if (ACT.genre == null) { return; }
-      var len = LIB[ACT.genre].tracks.length;
-      play(ACT.genre, (ACT.i + d + len) % len);
+      var L = LIB[ACT.genre];
+      /* skip over empty slots when stepping */
+      var cur = ACT.i;
+      for (var s = 0; s < L.tracks.length; s++) {
+        cur = (cur + (d > 0 ? 1 : -1) + L.tracks.length) % L.tracks.length;
+        if (!isEmptySlot(L.tracks[cur])) { break; }
+      }
+      play(ACT.genre, cur);
     }
 
     function refreshUI() {
@@ -1104,7 +1172,6 @@
       plEq.classList.toggle("on", playing);
     }
 
-    /* ---------- slidable bar ---------- */
     var dragging = false, pendSeek = null;
     function barF(e) {
       var r = prog.getBoundingClientRect();
@@ -1138,7 +1205,6 @@
       });
     });
 
-    /* ---------- add files / links / finds ---------- */
     var fileIn = document.getElementById("fileIn"), pendG = null;
 
     function addFiles(g, files) {
@@ -1155,7 +1221,7 @@
         added++;
       });
       if (added) { toast(added + " MP3" + (added > 1 ? "s" : "") + " loaded into " + L.name + " — saved on this device"); }
-      else { toast("No free slots in " + L.name + " — remove something with ✕ first"); }
+      else { toast("All 500 slots in " + L.name + " are full — remove something with ✕ first"); }
       if (firstRow) { firstRow.scrollIntoView({ block: "center", behavior: "smooth" }); }
     }
 
@@ -1184,7 +1250,7 @@
 
     function addLink(g, v, customTitle) {
       var idx = freeSlot(g);
-      if (idx < 0) { toast("No free slots in " + LIB[g].name + " — remove something with ✕ first"); return; }
+      if (idx < 0) { toast("All 500 slots in " + LIB[g].name + " are full — remove something with ✕ first"); return; }
       var t = LIB[g].tracks[idx];
       var yt = parseYT(v);
 
@@ -1233,7 +1299,6 @@
         });
     }
 
-    /* ---------- Internet Archive finder ---------- */
     var findModal = document.getElementById("findModal"),
       findIn = document.getElementById("findIn"),
       findRes = document.getElementById("findRes"),
@@ -1298,14 +1363,21 @@
     findModal.addEventListener("click", function (e) { if (e.target === findModal) { closeFind(); } });
     findIn.addEventListener("keydown", function (e) { if (e.key === "Enter") { runFind(); } });
 
-    /* ---------- zone clicks ---------- */
     zonesEl.addEventListener("click", function (e) {
       var rm = e.target.closest(".rm");
       if (rm) { var tr = rm.closest(".track"); removeLocal(tr.dataset.g, +tr.dataset.i); return; }
       var row = e.target.closest(".track");
-      if (row) { play(row.dataset.g, +row.dataset.i); return; }
+      if (row && !row.classList.contains("track-empty")) { play(row.dataset.g, +row.dataset.i); return; }
       var sh = e.target.closest(".shuffle");
-      if (sh) { var g = sh.dataset.g; play(g, Math.floor(Math.random() * LIB[g].tracks.length)); return; }
+      if (sh) {
+        var g = sh.dataset.g;
+        /* shuffle plays a random non-empty slot */
+        var L = LIB[g], filled = [];
+        L.tracks.forEach(function (t, i) { if (!isEmptySlot(t)) { filled.push(i); } });
+        if (filled.length) { play(g, filled[Math.floor(Math.random() * filled.length)]); }
+        else { toast("No tracks loaded yet in " + L.name); }
+        return;
+      }
       var fb = e.target.closest(".findbtn");
       if (fb) { openFind(fb.dataset.g); return; }
       var al = e.target.closest(".addlink");
@@ -1323,19 +1395,27 @@
 
     function removeLocal(g, i) {
       var t = LIB[g].tracks[i];
-      if (!t.kind) { return; }
+      if (isEmptySlot(t)) { return; }
       if (idb) { idbDel(g + ":" + i); }
       if (t.src && t.src.indexOf("blob:") === 0) { try { URL.revokeObjectURL(t.src); } catch (e) {} }
       if (mode === "file" && ACT.genre === g && ACT.i === i) { audioL.pause(); }
       if (mode === "yt" && ACT.genre === g && ACT.i === i) { closeYT(); }
-      t.kind = null; t.local = false; t.offline = false;
-      t.src = null; t.blob = null; t.yt = null; t.remoteUrl = null;
-      t.title = t.origTitle;
+      /* only user-added content is fully removed; original 50 tracks restore to their original state */
+      var isOriginal = i < RAW[g].length;
+      if (isOriginal) {
+        t.kind = null; t.local = false; t.offline = false;
+        t.src = null; t.blob = null; t.yt = null; t.remoteUrl = null;
+        t.title = t.origTitle;
+      } else {
+        /* expansion slot → back to empty */
+        t.kind = null; t.local = false; t.offline = false;
+        t.src = null; t.blob = null; t.yt = null; t.remoteUrl = null;
+        t.title = ""; t.artist = "";
+      }
       updateRowDOM(g, i); refreshUI();
-      toast("Removed — slot " + (i + 1) + " back to “" + t.origTitle + "”");
+      toast("Removed — slot " + (i + 1) + " " + (isOriginal ? "restored" : "now empty"));
     }
 
-    /* ---------- drag & drop ---------- */
     var dropveil = document.getElementById("dropveil"),
       dvZone = document.getElementById("dvZone"),
       dragDepth = 0;
@@ -1366,7 +1446,6 @@
       if (files.length) { addFiles(activeZone, files); }
     });
 
-    /* ---------- restore on boot ---------- */
     idbOpen().then(function (db) {
       idb = db;
       return idbAll();
@@ -1395,7 +1474,6 @@
       if (n) { toast(n + " saved item" + (n > 1 ? "s" : "") + " restored from this device"); }
     }).catch(function () {});
 
-    /* ---------- transport / keys ---------- */
     document.getElementById("btnPrev").onclick = function () { step(-1); };
     document.getElementById("btnNext").onclick = function () { step(1); };
     btnPlay.onclick = toggle;
@@ -1481,7 +1559,10 @@
     document.getElementById("q").addEventListener("input", function (e) {
       var v = e.target.value.trim().toLowerCase();
       document.querySelectorAll(".track").forEach(function (r) {
-        r.classList.toggle("hide", !!v && r.dataset.search.indexOf(v) === -1);
+        var s = r.dataset.search || "";
+        var empty = r.classList.contains("track-empty");
+        /* hide empty slots when searching so results focus on real tracks */
+        r.classList.toggle("hide", (empty && v.length > 0) || (!!v && s.indexOf(v) === -1));
       });
     });
 
