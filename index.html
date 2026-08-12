@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== 1. TOKENS & BASE ========== */
     :root {
       --bg: #0b0e13; --line: #1d2430; --txt: #e7ecf3; --mut: #8b95a7;
       --kids: #3ec9ff; --tween: #3ee6b8; --adult: #f2b25c; --bass: #ff4b45;
@@ -34,7 +33,6 @@
     }
     body.pb-on { padding-bottom: 178px; }
 
-    /* ========== 2. TOP BAR ========== */
     .top {
       position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 22px;
       height: 58px; padding: 0 clamp(16px, 4vw, 44px);
@@ -65,7 +63,6 @@
       color: var(--mut); font-size: 14px; pointer-events: none;
     }
 
-    /* ========== 3. STRIP ========== */
     .strip {
       display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
       padding: 22px clamp(16px, 4vw, 44px) 18px; font-family: var(--mono); font-size: 10px;
@@ -80,7 +77,6 @@
       50% { opacity: .5; box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
     }
 
-    /* ========== 4. ZONES & ROWS ========== */
     .zone {
       border-bottom: 1px solid var(--line); opacity: 0; transform: translateY(26px);
       transition: opacity .7s ease, transform .7s ease; scroll-margin-top: 70px;
@@ -145,7 +141,6 @@
     .tdur { font-family: var(--mono); font-size: 10.5px; color: var(--mut); flex: none; }
     .track:hover .tdur { color: var(--acc); }
     .track.local .tdur::before { content: "●"; font-size: 7px; vertical-align: 2px; margin-right: 6px; color: var(--acc); }
-    .track.mel .tdur::before { content: "♪"; font-size: 9px; vertical-align: 1px; margin-right: 6px; color: var(--acc); }
     .track.ytrow .tdur::before { content: "▶"; font-size: 8px; vertical-align: 1px; margin-right: 6px; color: var(--mut); }
     .rm { display: none; font-family: var(--mono); font-size: 10px; color: var(--mut); padding: 3px 7px; border-radius: 5px; cursor: pointer; flex: none; transition: .15s; }
     .rm:hover { color: #ff827c; background: rgba(255, 75, 69, .12); }
@@ -162,7 +157,6 @@
       background: repeating-linear-gradient(-45deg, var(--bass) 0 7px, transparent 7px 14px);
     }
 
-    /* ---------- single "next open slot" placeholder ---------- */
     .track-empty {
       opacity: .45; border: 1px dashed var(--line); background: transparent; cursor: default;
     }
@@ -175,7 +169,6 @@
     .track-empty .ta { font-size: 10px; letter-spacing: 1px; }
     .track-empty .tdur { color: var(--mut); opacity: .6; }
 
-    /* ========== 5. FOOTER ========== */
     footer {
       padding: 34px clamp(16px, 4vw, 44px) 20px; font-family: var(--mono); font-size: 10px;
       letter-spacing: 2px; color: var(--mut); display: flex; justify-content: space-between;
@@ -186,7 +179,6 @@
       color: var(--mut); opacity: .9;
     }
 
-    /* ========== 6. PLAYER ========== */
     .player {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 80; display: flex; flex-direction: column;
       gap: 7px; padding: 9px clamp(14px, 3vw, 34px) 12px; background: rgba(13, 17, 23, .93);
@@ -244,7 +236,6 @@
     }
     .vizbtn.on { color: var(--txt); border-color: #3d4757; background: rgba(255, 255, 255, .05); }
 
-    /* ---------- mobile fixes ---------- */
     @media (max-width: 760px) {
       .brand span { display: none; }
       .top { gap: 12px; backdrop-filter: none; background: rgba(11, 14, 19, .97); }
@@ -257,7 +248,6 @@
     }
     @media (max-width: 520px) { .pl-bar span { display: none; } }
 
-    /* ========== 7. TOAST ========== */
     .toast {
       position: fixed; left: 50%; bottom: 190px; transform: translateX(-50%) translateY(10px);
       background: #161c26; border: 1px solid var(--line); color: var(--txt); font-family: var(--mono);
@@ -266,7 +256,6 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ========== 8. MODALS & DROP VEIL ========== */
     .modal {
       position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
       background: rgba(5, 8, 12, .82); padding: 16px;
@@ -319,7 +308,7 @@
 <body>
 
   <header class="top">
-    <a class="brand" href="#top"><b>Tuneline</b><span>170 TRACKS · 500 SLOTS EACH</span></a>
+    <a class="brand" href="#top"><b>Tuneline</b><span>YOUR MUSIC LIBRARY</span></a>
     <nav class="nav">
       <a href="#kids"><em style="color:var(--kids)">●</em>3–8</a>
       <a href="#tween"><em style="color:var(--tween)">●</em>9–13</a>
@@ -330,15 +319,15 @@
   </header>
 
   <div class="strip" id="top">
-    <span>500 SLOTS PER ZONE — LIST SHOWS FILLED TRACKS + NEXT OPEN SLOT ONLY</span>
+    <span>500 SLOTS PER ZONE — START EMPTY, ADD YOUR OWN</span>
     <span><i class="dot"></i>TRUE FFT · YT EMBEDS · ARCHIVE FINDER</span>
   </div>
 
   <main id="zones"></main>
 
   <footer>
-    <span>Tuneline · 500 SLOTS PER ZONE · ONLY FILLED + NEXT OPEN SHOWN</span>
-    <span>MP3s · LINKS · FINDS PERSIST LOCALLY · ✕ REMOVES · DROP MP3s ANYWHERE</span>
+    <span>Tuneline · 500 SLOTS PER ZONE · ADD MP3s, LINKS, OR FINDS</span>
+    <span>EVERYTHING PERSISTS LOCALLY · ✕ REMOVES · DROP MP3s ANYWHERE</span>
     <span class="copy">© 2026 yofriendfromschool1 · ALL RIGHTS RESERVED</span>
   </footer>
 
@@ -407,7 +396,7 @@
     <div class="pl-row">
       <div class="pl-info">
         <span class="pg" id="pg">—</span>
-        <span class="psrc" id="plSrc">LIVE SYNTH</span>
+        <span class="psrc" id="plSrc">—</span>
         <div class="pl-txt">
           <div class="pl-t" id="plT">—</div>
           <div class="pl-a" id="plA">—</div>
@@ -437,128 +426,15 @@
   <script>
     "use strict";
 
-    /* ========== 1. PUBLIC-DOMAIN MELODY CATALOG ========== */
-    var MELODIES = {
-      "Twinkle Twinkle Little Star": "C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2",
-      "The ABC Song": "C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2",
-      "Baa Baa Black Sheep": "C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2",
-      "Mary Had a Little Lamb": "E4 D4 C4 D4 E4 E4 E4:2 D4 D4 D4:2 E4 G4 G4:2 E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4:3",
-      "London Bridge Is Falling Down": "G4 A4 G4 F4 E4 F4 G4:2 D4 E4 F4 E4 F4 G4:2 G4 A4 G4 F4 E4 F4 G4:2 D4 F4 E4 D4 C4:3",
-      "Row, Row, Row Your Boat": "C4 C4 C4 D4 E4:2 E4 D4 E4 F4 E4:2 E4 E4 E4 E4 E4 E4 E4 D4 E4 F4 E4:2 C4 C4 C4 D4 E4:2 E4 D4 E4 F4 E4 C4:2",
-      "Old MacDonald Had a Farm": "C4 C4 C4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 C4 C4 C4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2",
-      "The Itsy Bitsy Spider": "G3 C4 C4 C4 D4 E4 E4 D4 C4 D4 E4 C4:2 G3 C4 C4 C4 D4 E4 E4 D4 C4 D4 E4 C4:2 E4 E4 E4 E4 D4 E4 F4 E4 D4 E4 C4:2",
-      "The Wheels on the Bus": "G4 G4 G4 G4 E4 E4 C4 C4 D4 D4 E4 E4 E4:2 G4 G4 G4 G4 E4 E4 C4 C4 D4 D4 E4 C4:2 D4 D4 D4 D4 B3 B3 G3 G3 C4 C4 D4 D4 E4:2",
-      "Happy Birthday to You": "G3 G3 A3:2 G3:2 C4:2 B3:4 G3 G3 A3:2 D4:2 C4:4 G3 G3 G4:2 E4:2 C4:2 B3:2 A3:4 F4 F4 E4:2 C4:2 D4:2 C4:4",
-      "Jingle Bells": "E4 E4 E4:2 E4 E4 E4:2 E4 G4 C4 D4 E4:4 F4 F4 F4 F4 F4 E4 E4 E4 E4 D4 D4 E4 D4:2 G4:2 E4 E4 E4:2 E4 E4 E4:2 E4 G4 C4 D4 E4:4 F4 F4 F4 F4 F4 E4 E4 E4 G4 G4 F4 D4 C4:4",
-      "Frère Jacques": "C4 D4 E4 C4 C4 D4 E4 C4 E4 F4 G4:2 E4 F4 G4:2 G4 A4 G4 F4 E4 C4 G4 A4 G4 F4 E4 C4 C4 G3 C4:2 C4 G3 C4:2",
-      "Ode to Joy": "E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4:2 D4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4 C4:2 C4:2",
-      "Yankee Doodle": "D4 D4 E4 F4 F4 E4 F4 G4 A4 F4 D4:3 D4 D4 E4 F4 F4 E4 F4 G4 A4 F4 D4:3",
-      "Camptown Races": "D4 D4 E4 F4:2 F4 E4 F4 G4:2 D4 D4 E4 F4:2 E4 D4:3 A4 A4 G4 F4:2 E4 D4 E4 F4 E4 D4:3",
-      "When the Saints Go Marching In": "C4 E4 F4:2 G4:2 C4 E4 F4:2 G4:2 C4 E4 F4:2 G4:2 G4 A4 G4:2 F4 E4 F4:2",
-      "Oh! Susanna": "C4 D4 E4:2 E4 E4 D4 E4 F4:2 F4 F4 E4 E4 D4 E4 D4:2 C4 D4 E4:2 E4 E4 D4 E4 F4:2 F4 F4 E4 E4 D4 E4 D4:2",
-      "My Bonnie Lies Over the Ocean": "D4:2 G4 G4:2 A4 A4:2 B4 B4:2 A4 G4:2 A4 B4:2 C5:2 B4 A4:2 G4 F4:2 E4 D4:3",
-      "Greensleeves": "A4 D5:2 F5 E5:2 D5 B4 G4:2 A4 B4:2 C5 A4:2 A4 G4:2 E4:2 A4 D5:2 F5 E5:2 D5 B4 G4:2 A4 B4:2 C5 A4:2 A4 G4:2 A4:3",
-      "Scarborough Fair": "D4:2 F4 G4 A4:3 C5:2 A4 F4:2 D4:3 D4:2 F4 G4 A4:3 C5:2 A4 D5:2 D4:3",
-      "Clementine": "C4:2 F4 F4:2 F4 G4 A4:3 A4:2 F4 F4:2 G4 A4:3 A4:2 F4 F4:2 G4 A4:2 G4:3",
-      "Auld Lang Syne": "C4 F4:2 F4 F4:2 A4 G4:2 F4 G4:2 A4 F4 G4:2 A4 C5:2 A4 G4:2 F4 D4:2 F4 E4:2 D4:3",
-      "Für Elise": "E5 D#5 E5 D#5 E5 B4 D5 C5 A4:2 R C4 E4 A4 B4:2 R E4 G#4 B4 C5:2 R E5 D#5 E5 D#5 E5 B4 D5 C5 A4:2 R C4 E4 A4 B4 E4:3",
-      "The Entertainer": "D5 D#5 E5 C5 E4 G4 C5:2 D5 D#5 E5 C5 E4 G4 C5:2 E5 C5 A4:2 G4:2",
-      "Gymnopédie No. 1": "D5:2 C#5 B4:2 A4 F#4:2 G4:2 A4:3 D5:2 C#5 B4:2 A4 F#4:2 G4:2 A4:3",
-      "Moonlight Sonata": "G#4 C#5 E5:3 G#4 C#5 E5:3 G#4 C#5 E5:3 A4 C#5 E5:3 G#4 C#5 E5:3 A4 C#5 E5:3",
-      "Minuet in G": "D5:2 G5 A5 B5 C5:2 D5:2 C5 B4 A4 B4:2 G4:2 D5:2 G5 A5 B5 C5:2 D5:2 C5 B4 A4 B4 C5:2",
-      "Canon in D": "F#5:2 E5 D5:2 C#5 B4:2 A4 G4:2 F#4 E5:2 D5 C#5:2 B4 A4:2 G4 E4:2",
-      "Turkish March": "B4 A4 G#4 A4 C5:2 B4 A4 G#4 A4 D5:2 C5 B4 A4 B4 E5:2",
-      "Habanera": "D5 C#5 C5 B4:2 D5 C#5 C5 B4:2 D5 F5 E5 D5 C5 B4:2",
-      "St. Louis Blues": "G4 C5:2 C5 C5 B4 Bb4 A4 Ab4 G4:2 G4 C5:2 C5 C5 B4 Bb4 A4 Ab4 G4:2",
-      "Ain't Misbehavin'": "G4:2 A4 Bb4:2 B4 C5:2 E5:2 D5:2 C5:2 A4:2 G4:2"
-    };
-
-    function parseMel(str) {
-      return str.split(/\s+/).map(function (token) {
-        if (token === "R") { return { n: -1, l: 1 }; }
-        var m = token.match(/^([A-G](?:#|b)?)(\d)?(?::(\d+(?:\.\d+)?))?$/);
-        if (!m) { return { n: -1, l: 1 }; }
-        var NAMES = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
-        var n = NAMES[m[1].charAt(0)];
-        if (m[1].charAt(1) === "#") { n++; }
-        if (m[1].charAt(1) === "b") { n--; }
-        var oct = (m[2] != null) ? +m[2] : 4;
-        return { n: n + 12 * (oct + 1), l: m[3] ? +m[3] : 1 };
-      });
-    }
-
-    /* ========== 2. LIBRARY DATA ========== */
-    var POOLS = {
-      kids:  ["Ms. Melody", "The Sunshine Crew", "Captain Bubbles", "Miss Daisy", "The Giggle Band", "Nana June", "Little Echo", "Professor Pop"],
-      tween: ["Nova Rae", "The Weekend Squad", "JETT", "Pixel Party", "Skyler James", "The Brightside", "Echo Bloom", "Milo & Co"],
-      adult: ["Blue Hour Trio", "Velvet Static", "The Late Shift", "Ivy & Oak", "Marlowe", "Night Café", "Sable", "The Slow Light"],
-      bass:  ["KRNK", "VXR", "DARKMATTER", "FAULTLINE", "OHMBREAK", "GLACIER", "LOWE", "MC TREMOR"]
-    };
-
-    var RAW = {
-      kids: [
-        "Twinkle Twinkle Little Star", "The ABC Song", "Baa Baa Black Sheep", "Mary Had a Little Lamb",
-        "London Bridge Is Falling Down", "Row, Row, Row Your Boat", "Old MacDonald Had a Farm", "The Itsy Bitsy Spider",
-        "The Wheels on the Bus", "Happy Birthday to You", "Jingle Bells", "Frère Jacques",
-        "The Dino Stomp", "Rainbow Colors", "Zoom Zoom Rocket", "Splash in the Puddle",
-        "Sleepy Little Star", "The Animal Dance", "Bubbles, Bubbles Everywhere", "The Freeze Dance",
-        "Counting to Ten", "Little Snowflake", "The Veggie Train", "Sailing on the Sea",
-        "The Good Morning Song", "Teddy Bear Hug", "Tiptoe, Tiptoe", "Bedtime Lullaby",
-        "Clean Up, Clean Up", "The Brush Your Teeth Song", "Puddle Jumpers", "Sandcastle Sunday",
-        "The Wiggly Worm", "Robot Robot Walk", "Butterfly Ballet", "Froggy Frog Hop",
-        "Snowman Sneeze", "Fire Truck Fury", "The Train Goes Round", "Kangaroo Kick",
-        "Penguin Parade", "Lion Cub Lullaby", "Hippo Hopscotch", "Turtle Race",
-        "Beach Ball Bounce", "Starfish Wish", "Pirate Ship Shanty", "Rocket to the Moon",
-        "Jungle Gym Jamboree", "Pancake Party"
-      ],
-      tween: [
-        "Ode to Joy", "Yankee Doodle", "Camptown Races", "When the Saints Go Marching In",
-        "Oh! Susanna", "My Bonnie Lies Over the Ocean", "Greensleeves", "Scarborough Fair",
-        "Clementine", "Auld Lang Syne", "Neon Skies", "Summer Squad",
-        "Glow Up", "Skate Park Anthem", "Pixel Hearts", "Midnight Snack",
-        "Homework Heroes", "Cloud Nine", "Jump Higher", "Free Fall",
-        "The Crew Song", "Weekday Warriors", "Shine On", "Louder Than Ever",
-        "Catch the Wave", "Gold Stars", "Run the Playground", "Snap & Clap",
-        "Daydreamer", "Lights, Camera, Action", "Forever Recess", "Locker Room Legends",
-        "Cafeteria Anthem", "Bus Stop Boogie", "Science Fair", "Field Day",
-        "Group Project", "Recess Bell", "Backpack Blast", "Sneaker Squeak",
-        "Chalkboard Champions", "Paper Plane Pilots", "Hall Pass Hustle", "Talent Show",
-        "Sleepover Squad", "Bike Lane Riders", "Arcade All-Nighter", "Snow Day",
-        "Last Day of School", "Bike Rack Club"
-      ],
-      adult: [
-        "Für Elise", "The Entertainer", "Gymnopédie No. 1", "Moonlight Sonata",
-        "Minuet in G", "Canon in D", "Turkish March", "Habanera",
-        "St. Louis Blues", "Ain't Misbehavin'", "Midnight in Harlem", "Coffee & Rain",
-        "Late Train Home", "The Velvet Hour", "Paper Moon", "Slow Burn",
-        "City Lights", "Old Bookstore", "Rooftop Breeze", "Neon Rain",
-        "Quiet Corners", "After Hours", "Golden Hour Groove", "Vinyl Memories",
-        "Soft Focus", "Warm Static", "Balcony Serenade", "Two Cups of Tea",
-        "Dusk Drive", "Indigo Evening", "Slow Dance Kitchen", "Midnight Metro",
-        "Candlelight Study", "Rainy Window", "Amber & Oak", "Low Tide",
-        "Night Bloom", "Dreamcatcher", "Silver Linings", "Corner Table",
-        "Last Call Lullaby", "Espresso at Nine", "Sunday Papers", "Harbor Fog",
-        "Autumn Sweater", "Window Seat", "Second Cup", "Analog Heart",
-        "Porch Light", "Nightcap"
-      ],
-      bass: [
-        "Subwoofer Sacrifice", "Tectonic", "Bass Reactor", "808 Apocalypse",
-        "Drop Zone", "Seismic", "Wub Cathedral", "Redline Rumble",
-        "Gravity Well", "Skull Rattler", "Low End Logic", "Molten Core",
-        "Night Riots", "Chrome Teeth", "Pressure Chamber", "Avalanche Protocol",
-        "Bassquake City", "Void Walker", "Speaker Wrecker", "The Final Drop"
-      ]
-    };
-
     var LIB = {
-      kids:  { name: "Little Ones",  ages: "AGES 3–8", tag: "NURSERY · SING-ALONGS", cap: 500,
-        desc: "Real nursery-rhyme melodies performed live, plus gentle originals for the smallest ears." },
-      tween: { name: "Tweens", ages: "AGES 9–13", tag: "SCHOOL SONGBOOK · POP ORIGINALS", cap: 500,
-        desc: "The real folk & school songbook — Ode to Joy, Yankee Doodle and friends — plus clean pop-energy originals." },
-      adult: { name: "Adults", ages: "14+", tag: "CLASSICAL · EARLY JAZZ · LO-FI", cap: 500,
-        desc: "Real classical and early-jazz standards — Für Elise, The Entertainer, Canon in D — plus mellow originals." },
-      bass:  { name: "Extreme Bass", ages: "⚠ LOUD", tag: "DUBSTEP · RIDDIM · SUB-100Hz", cap: 500,
-        desc: "Certified speaker-breakers. Check your volume before you hit play." }
+      kids:  { name: "Little Ones",  ages: "AGES 3–8", tag: "KIDS MUSIC", cap: 500,
+        desc: "Add nursery rhymes, children's songs, and gentle music for young listeners." },
+      tween: { name: "Tweens", ages: "AGES 9–13", tag: "POP · ROCK · CLEAN", cap: 500,
+        desc: "Add age-appropriate pop, rock, and school-friendly tracks." },
+      adult: { name: "Adults", ages: "14+", tag: "ALL GENRES", cap: 500,
+        desc: "Add classical, jazz, lo-fi, rock, or any music for mature listeners." },
+      bass:  { name: "Extreme Bass", ages: "⚠ LOUD", tag: "DUBSTEP · HEAVY", cap: 500,
+        desc: "Add bass-heavy tracks. Check your volume before you hit play." }
     };
 
     var ORDER = ["kids", "tween", "adult", "bass"];
@@ -567,19 +443,7 @@
 
     ORDER.forEach(function (zone) {
       var L = LIB[zone];
-      L.tracks = RAW[zone].map(function (title, i) {
-        return {
-          title: title, origTitle: title,
-          artist: POOLS[zone][(i * 3 + 1) % 8],
-          kind: null, local: false, offline: false,
-          src: null, blob: null, yt: null, remoteUrl: null,
-          mel: MELODIES[title] ? parseMel(MELODIES[title]) : null,
-          d: zone === "kids"  ? 80  + ((i * 53 + 7) % 40) :
-             zone === "tween" ? 90  + ((i * 53 + 7) % 45) :
-             zone === "adult" ? 85  + ((i * 53 + 7) % 45) :
-                                150 + ((i * 53 + 7) % 70)
-        };
-      });
+      L.tracks = [];
       while (L.tracks.length < L.cap) {
         L.tracks.push({
           title: "", origTitle: "", artist: "",
@@ -597,7 +461,7 @@
     function scrollRow(g, i) { var r = rowEl(g, i); if (r) { r.scrollIntoView({ block: "center", behavior: "smooth" }); } }
     function freeSlot(g) {
       var L = LIB[g];
-      for (var i = RAW[g].length; i < L.tracks.length; i++) {
+      for (var i = 0; i < L.tracks.length; i++) {
         if (!L.tracks[i].kind) { return i; }
       }
       return -1;
@@ -610,7 +474,6 @@
     }
     function isEmptySlot(t) { return !t.origTitle && !t.kind; }
 
-    /* read a file's real length without playing it */
     function probeDuration(url, cb) {
       var a = new Audio();
       a.preload = "metadata";
@@ -629,7 +492,6 @@
       setTimeout(function () { fin(0); }, 8000);
     }
 
-    /* ========== 3. BUILD ZONES ========== */
     function rowHTML(zone, m, i) {
       var idx = String(i + 1).padStart(3, "0");
       if (isEmptySlot(m)) {
@@ -640,7 +502,6 @@
           '<span class="tdur">—</span></button>';
       }
       var cls = "track" +
-        (m.mel && !m.local && m.kind !== "yt" ? " mel" : "") +
         (m.local ? " local" : "") +
         (m.kind === "yt" ? " ytrow" : "");
       return '<button class="' + cls + '" data-g="' + zone + '" data-i="' + i +
@@ -705,7 +566,6 @@
     }).join("");
     ORDER.forEach(updateCap);
 
-    /* ========== 4. INDEXEDDB PERSISTENCE ========== */
     var idb = null;
     function idbOpen() {
       return new Promise(function (res, rej) {
@@ -760,7 +620,6 @@
       idbSet(en);
     }
 
-    /* write a probed duration into the track + its row */
     function setDur(g, i, secs) {
       var t = LIB[g].tracks[i];
       if (!t || !secs) { return; }
@@ -770,7 +629,6 @@
       persist(g, i);
     }
 
-    /* ========== 5. AUDIO ENGINE ========== */
     var AC = null, master = null, noiseBuf = null, analyser = null, freqData = null;
     var volSet = 0.8, CUR_SKIP = 0;
     var ACT = { srcs: [], bus: null, genre: null, i: -1, start: 0, dur: 0, state: "idle" };
@@ -798,7 +656,6 @@
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
       };
     }
-    function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
     function getNoise() {
       if (!noiseBuf) {
         noiseBuf = AC.createBuffer(1, AC.sampleRate, AC.sampleRate);
@@ -807,259 +664,7 @@
       }
       return noiseBuf;
     }
-    function tone(dest, type, freq, t, dur, peak, cut, atk) {
-      if (t < CUR_SKIP) { return; }
-      atk = atk || 0.012;
-      var os = AC.createOscillator(); os.type = type; os.frequency.value = freq;
-      var g = AC.createGain(); var last = os;
-      if (cut) { var fl = AC.createBiquadFilter(); fl.type = "lowpass"; fl.frequency.value = cut; os.connect(fl); last = fl; }
-      last.connect(g); g.connect(dest);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(peak, t + atk);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      os.start(t); os.stop(t + dur + 0.06); S(os);
-    }
-    function nz(dest, t, dur, peak, type, freq, q) {
-      if (t < CUR_SKIP) { return; }
-      var s = AC.createBufferSource(); s.buffer = getNoise();
-      var f = AC.createBiquadFilter(); f.type = type; f.frequency.value = freq; if (q) { f.Q.value = q; }
-      var g = AC.createGain(); s.connect(f); f.connect(g); g.connect(dest);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(peak, t + 0.006);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      s.start(t); s.stop(t + dur + 0.06); S(s);
-    }
-    function kick(dest, t, p) {
-      if (t < CUR_SKIP) { return; }
-      var os = AC.createOscillator(), g = AC.createGain();
-      os.frequency.setValueAtTime(150, t);
-      os.frequency.exponentialRampToValueAtTime(42, t + 0.12);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(p, t + 0.005);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
-      os.connect(g); g.connect(dest); os.start(t); os.stop(t + 0.3); S(os);
-    }
-    function snare(dest, t, p) {
-      if (t < CUR_SKIP) { return; }
-      nz(dest, t, 0.16, p * 0.8, "bandpass", 1800, 0.8);
-      var os = AC.createOscillator(), g = AC.createGain(); os.frequency.value = 190;
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(p * 0.5, t + 0.004);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
-      os.connect(g); g.connect(dest); os.start(t); os.stop(t + 0.1); S(os);
-    }
-    function clap(dest, t, p) {
-      if (t < CUR_SKIP) { return; }
-      for (var k = 0; k < 3; k++) { nz(dest, t + k * 0.013, 0.06, p, "bandpass", 1400, 1); }
-      nz(dest, t + 0.03, 0.22, p * 0.7, "bandpass", 1300, 1);
-    }
-    function hat(dest, t, p, open) { nz(dest, t, open ? 0.28 : 0.045, p, "highpass", 7200); }
-    function crash(dest, t, p) { nz(dest, t, 1.1, p, "highpass", 4800); }
-    function riser(dest, t, dur) {
-      if (t < CUR_SKIP) { return; }
-      var s = AC.createBufferSource(); s.buffer = getNoise(); s.loop = true;
-      var f = AC.createBiquadFilter(); f.type = "bandpass"; f.Q.value = 1.2;
-      f.frequency.setValueAtTime(300, t);
-      f.frequency.exponentialRampToValueAtTime(5200, t + dur);
-      var g = AC.createGain();
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(0.14, t + dur);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.1);
-      s.connect(f); f.connect(g); g.connect(dest); s.start(t); s.stop(t + dur + 0.15); S(s);
-    }
-    function wob(dest, freq, t, dur, rate, peak) {
-      if (t < CUR_SKIP) { return; }
-      var os = AC.createOscillator(); os.type = "sawtooth"; os.frequency.value = freq;
-      var fl = AC.createBiquadFilter(); fl.type = "lowpass"; fl.Q.value = 9; fl.frequency.value = 520;
-      var lfo = AC.createOscillator(); lfo.frequency.value = rate;
-      var lg = AC.createGain(); lg.gain.value = 340; lfo.connect(lg); lg.connect(fl.frequency);
-      var g = AC.createGain();
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(peak, t + 0.015);
-      g.gain.setValueAtTime(peak, t + Math.max(0.02, dur - 0.06));
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      os.connect(fl); fl.connect(g); g.connect(dest);
-      os.start(t); os.stop(t + dur + 0.05); lfo.start(t); lfo.stop(t + dur + 0.05); S(os); S(lfo);
-    }
 
-    function genMel(out, t0, dur, rnd, mel, zone) {
-      var bpm = zone === "kids" ? 112 : zone === "tween" ? 124 : 78;
-      var ub = 60 / bpm;
-      var bars = Math.floor(dur / (ub * 8));
-      var bn = ((mel[0].n > 0 ? mel[0].n : 60) - 24);
-      var b, k;
-      for (b = 0; b < bars; b++) {
-        var t = t0 + b * 8 * ub;
-        if (zone === "kids") {
-          for (k = 0; k < 4; k++) { kick(out, t + k * 2 * ub, k ? 0.34 : 0.44); }
-          clap(out, t + 2 * ub, 0.22); clap(out, t + 6 * ub, 0.22);
-          for (k = 0; k < 8; k++) { hat(out, t + k * ub, 0.06, rnd() < 0.05); }
-        } else if (zone === "tween") {
-          for (k = 0; k < 4; k++) { kick(out, t + k * 2 * ub, 0.42); }
-          snare(out, t + 2 * ub, 0.32); snare(out, t + 6 * ub, 0.32);
-          for (k = 0; k < 8; k++) { hat(out, t + k * ub, k % 2 ? 0.1 : 0.05, k % 4 === 3); }
-        } else {
-          kick(out, t, 0.26); kick(out, t + 4 * ub, 0.22);
-          snare(out, t + 2 * ub, 0.09); snare(out, t + 6 * ub, 0.09);
-          for (k = 0; k < 8; k++) { hat(out, t + k * ub + (k % 2 ? ub * 0.16 : 0), 0.04); }
-        }
-        tone(out, "sine", mtof(bn), t, ub * 3, zone === "adult" ? 0.24 : 0.28, 300, 0.02);
-        tone(out, "sine", mtof(bn + 7), t + 4 * ub, ub * 3, 0.2, 300, 0.02);
-      }
-      var pass = 0, mt = t0 + ub * 2, end = t0 + dur - 1.5;
-      while (mt < end) {
-        for (var j = 0; j < mel.length; j++) {
-          var ev = mel[j], d = ev.l * ub;
-          if (ev.n >= 0) {
-            if (zone === "kids") { tone(out, "triangle", mtof(ev.n + (pass % 2 ? 12 : 0)), mt, d * 0.92, 0.3, 3200); }
-            else if (zone === "tween") {
-              tone(out, "square", mtof(ev.n), mt, d * 0.9, 0.15, 2600);
-              tone(out, "sawtooth", mtof(ev.n + 12), mt, d * 0.9, 0.07, 3000);
-            } else {
-              tone(out, "sine", mtof(ev.n), mt, d * 1.7, 0.2, 2200, 0.02);
-              tone(out, "triangle", mtof(ev.n) * 1.004, mt, d * 1.7, 0.09, 2400, 0.02);
-            }
-          }
-          mt += d;
-          if (mt > end) { break; }
-        }
-        pass++;
-      }
-    }
-
-    function genKids(out, t0, dur, r) {
-      var R = function (n) { return Math.floor(r() * n); };
-      var bpm = 106 + R(14), bt = 60 / bpm, bar = 4 * bt;
-      var pent = [60, 62, 64, 67, 69, 72, 74, 76];
-      var CH = [[48, 52, 55], [43, 47, 50], [45, 48, 52], [41, 45, 48]];
-      var nB = Math.floor(dur / bar), motif = [];
-      for (var b = 0; b < nB; b++) {
-        var t = t0 + b * bar, ch = CH[(b >> 1) % 4], k;
-        if (b % 8 === 0) { motif = []; for (k = 0; k < 8; k++) { motif.push(r() < 0.16 ? -1 : R(pent.length)); } }
-        for (k = 0; k < 4; k++) { kick(out, t + k * bt, k ? 0.36 : 0.48); }
-        clap(out, t + bt, 0.28); clap(out, t + 3 * bt, 0.28);
-        for (k = 0; k < 8; k++) { hat(out, t + k * bt / 2, 0.08, r() < 0.06); }
-        tone(out, "triangle", mtof(ch[0]), t, bt * 1.6, 0.24, 400);
-        [0, 2 * bt].forEach(function (off) {
-          ch.forEach(function (n, j) { tone(out, "triangle", mtof(n + 12), t + off + j * 0.045, bt * 0.8, 0.09, 2600); });
-        });
-        for (k = 0; k < 8; k++) {
-          var m = motif[k]; if (m < 0) { continue; }
-          var oct = (b % 16 >= 8) ? 12 : 0;
-          tone(out, "triangle", mtof(pent[m] + oct), t + k * bt / 2, bt * 0.46, 0.22, 3200);
-        }
-        if (b % 8 === 7) { tone(out, "sine", mtof(91 + R(8)), t + 3 * bt, bt, 0.1, 9000); }
-      }
-    }
-
-    function genTween(out, t0, dur, r) {
-      var R = function (n) { return Math.floor(r() * n); };
-      var bpm = 118 + R(12), bt = 60 / bpm, bar = 4 * bt;
-      var PROG = [[60, 64, 67, 72], [59, 62, 67, 74], [57, 60, 64, 72], [57, 60, 65, 69]];
-      var ROOT = [48, 43, 45, 41];
-      var nB = Math.floor(dur / bar), lead = [];
-      for (var b = 0; b < nB; b++) {
-        var t = t0 + b * bar, ch = PROG[b % 4], k;
-        if (b % 8 === 0) {
-          lead = []; var cur = R(4);
-          for (k = 0; k < 8; k++) { cur = Math.max(0, Math.min(7, cur + R(3) - 1)); lead.push(cur); }
-          crash(out, t, 0.09);
-        }
-        if (b % 8 === 7) { riser(out, t + 2 * bt, 2 * bt); }
-        for (k = 0; k < 4; k++) { kick(out, t + k * bt, 0.48); }
-        snare(out, t + bt, 0.38); snare(out, t + 3 * bt, 0.38);
-        for (k = 0; k < 8; k++) { hat(out, t + k * bt / 2, k % 2 ? 0.13 : 0.07, k % 4 === 3); }
-        for (k = 0; k < 8; k++) { tone(out, "sawtooth", mtof(ROOT[b % 4]), t + k * bt / 2, bt * 0.42, 0.22, 420); }
-        for (k = 0; k < 8; k++) { tone(out, "square", mtof(ch[(k + (b % 2 ? 1 : 0)) % 4]), t + k * bt / 2, bt * 0.4, 0.07, 2400); }
-        if (b % 2 === 0) {
-          for (k = 0; k < 8; k++) {
-            var idx = lead[k], n = ch[idx % 4] + (idx >= 4 ? 12 : 0);
-            tone(out, "sawtooth", mtof(n), t + k * bt / 2, bt * 0.85, 0.15, 2800);
-          }
-        }
-      }
-    }
-
-    function genAdult(out, t0, dur, r) {
-      var R = function (n) { return Math.floor(r() * n); };
-      var bpm = 78 + R(12), bt = 60 / bpm, bar = 4 * bt, sw = bt * 0.16;
-      var CH = [[53, 57, 60, 64], [52, 55, 59, 62], [50, 53, 57, 60], [48, 52, 55, 59]];
-      var ROOT = [41, 40, 38, 36];
-      var nB = Math.floor(dur / bar);
-      for (var b = 0; b < nB; b++) {
-        var t = t0 + b * bar, ch = CH[b % 4];
-        ch.forEach(function (n) {
-          tone(out, "sine", mtof(n), t, bar * 0.98, 0.08, 1500, 0.35);
-          tone(out, "triangle", mtof(n) * 1.003, t, bar * 0.98, 0.045, 1400, 0.35);
-        });
-        kick(out, t, 0.3); kick(out, t + 2 * bt, 0.26);
-        snare(out, t + bt, 0.13); snare(out, t + 3 * bt, 0.13);
-        for (var k = 0; k < 8; k++) { hat(out, t + k * bt / 2 + (k % 2 ? sw : 0), 0.05, false); }
-        tone(out, "sine", mtof(ROOT[b % 4]), t, bt * 1.7, 0.3, 300, 0.02);
-        tone(out, "sine", mtof(ROOT[b % 4] + 7), t + 2 * bt, bt * 1.5, 0.2, 300, 0.02);
-        var nn = 1 + R(3);
-        for (k = 0; k < nn; k++) {
-          var pos = Math.floor(r() * 7) * bt / 2;
-          var note = ch[R(4)] + (r() < 0.22 ? 12 : 0);
-          tone(out, "triangle", mtof(note), t + pos, bt * (0.7 + r() * 0.9), 0.14, 1800, 0.02);
-        }
-        if (b % 4 === 3) { tone(out, "sine", mtof(ch[3] + 12), t + 3.5 * bt, bt, 0.09, 2400); }
-      }
-      for (var ct = t0; ct < t0 + dur; ct += 0.05) {
-        if (r() < 0.10) { nz(out, ct, 0.02, 0.014 + r() * 0.02, "highpass", 2800); }
-      }
-    }
-
-    function genBass(out, t0, dur, r) {
-      var R = function (n) { return Math.floor(r() * n); };
-      var bt = 60 / 140, bar = 4 * bt;
-      var SUB = mtof(29), WUB = mtof(41);
-      var nB = Math.floor(dur / bar);
-      for (var b = 0; b < nB; b++) {
-        var t = t0 + b * bar, blk = Math.floor(b / 8) % 4, k;
-        if (b < 2) { tone(out, "sine", SUB, t, bar, 0.34, 200, 0.2); if (b === 1) { riser(out, t, bar); } continue; }
-        if (b % 8 === 0) {
-          crash(out, t, 0.15);
-          var os = AC.createOscillator(), g = AC.createGain();
-          if (t >= CUR_SKIP) {
-            os.frequency.setValueAtTime(90, t);
-            os.frequency.exponentialRampToValueAtTime(26, t + 0.5);
-            g.gain.setValueAtTime(0.0001, t);
-            g.gain.linearRampToValueAtTime(0.68, t + 0.01);
-            g.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
-            os.connect(g); g.connect(out); os.start(t); os.stop(t + 0.65); S(os);
-          }
-        }
-        if (b % 8 === 7) { riser(out, t, bar); }
-        kick(out, t, 0.78);
-        if (blk % 2 === 1) { kick(out, t + 3.5 * bt, 0.48); }
-        snare(out, t + 2 * bt, 0.52);
-        for (k = 0; k < 8; k++) { if (r() < 0.45) { hat(out, t + k * bt / 2, 0.055, false); } }
-        if (blk === 0) {
-          wob(out, WUB, t, bar * 0.92, [4, 6][b % 2], 0.4);
-          tone(out, "sine", SUB, t, bar * 0.9, 0.38, 150);
-        } else if (blk === 1) {
-          for (k = 0; k < 8; k++) { if (r() < 0.8) { wob(out, WUB, t + k * bt / 2, bt * 0.4, 8, 0.32); } }
-          tone(out, "sine", SUB, t, bar * 0.85, 0.33, 150);
-        } else if (blk === 2) {
-          wob(out, WUB, t, bar * 0.92, 12 + r() * 4, 0.44);
-          tone(out, "sawtooth", WUB * 2, t, bar * 0.9, 0.09, 900);
-        } else {
-          wob(out, WUB, t, bar * 0.45, 5, 0.4);
-          for (k = 4; k < 8; k++) { if (r() < 0.75) { wob(out, WUB, t + k * bt / 2, bt * 0.4, 9, 0.3); } }
-          tone(out, "sine", SUB, t, bar * 0.5, 0.36, 150);
-        }
-      }
-    }
-
-    function stopSynth() {
-      ACT.srcs.forEach(function (s) { try { s.stop(); } catch (e) {} });
-      ACT.srcs = [];
-      if (ACT.bus) { try { ACT.bus.disconnect(); } catch (e) {} }
-      ACT.bus = null;
-    }
-
-    /* ========== 6. PLAYER ========== */
     var player = document.getElementById("player"),
       pg = document.getElementById("pg"), plSrc = document.getElementById("plSrc"),
       plT = document.getElementById("plT"), plA = document.getElementById("plA"),
@@ -1087,7 +692,6 @@
     audioL.addEventListener("loadedmetadata", function () {
       if (mode === "file" && isFinite(audioL.duration)) {
         tTot.textContent = fmt(audioL.duration);
-        /* learn the real length of user tracks on first play */
         if (ACT.genre != null) {
           var t = LIB[ACT.genre].tracks[ACT.i];
           if (t && t.local && (!t.d || Math.abs(t.d - audioL.duration) > 1)) {
@@ -1118,7 +722,6 @@
     ytModal.addEventListener("click", function (e) { if (e.target === ytModal) { closeYT(); } });
 
     function play(g, i, offset) {
-      stopSynth();
       audioL.pause();
       if (ytModal.classList.contains("open")) { closeYT(); }
       ensureAC();
@@ -1142,23 +745,6 @@
         tTot.textContent = t.d ? fmt(t.d) : "–:–";
         audioL.src = t.src; audioL.volume = volSet;
         audioL.play().catch(function () {});
-      } else {
-        mode = "synth";
-        plSrc.textContent = t.mel ? "REAL MELODY" : "LIVE SYNTH";
-        var dur = t.d;
-        var t0 = AC.currentTime + 0.08 - (offset || 0);
-        CUR_SKIP = AC.currentTime + 0.02;
-        var bus = AC.createGain(); bus.gain.value = 0.9; bus.connect(master);
-        ACT.bus = bus; ACT.dur = dur; ACT.start = t0; ACT.state = "playing";
-        var r = mulberry32(i * 97 + g.length * 131 + 17);
-        if (g === "bass")       { genBass(bus, t0, dur, r); }
-        else if (t.mel)         { genMel(bus, t0, dur, r, t.mel, g); }
-        else if (g === "kids")  { genKids(bus, t0, dur, r); }
-        else if (g === "tween") { genTween(bus, t0, dur, r); }
-        else                    { genAdult(bus, t0, dur, r); }
-        bus.gain.setValueAtTime(0.9, t0 + dur - 1.2);
-        bus.gain.linearRampToValueAtTime(0.0001, t0 + dur - 0.02);
-        tTot.textContent = fmt(dur);
       }
       player.classList.remove("off"); document.body.classList.add("pb-on");
       refreshUI();
@@ -1181,11 +767,8 @@
       }
       if (mode === "file") {
         if (audioL.paused) { audioL.play().catch(function () {}); } else { audioL.pause(); }
-      } else {
-        if (AC.state === "running") { AC.suspend(); ACT.state = "paused"; document.body.classList.add("paused"); }
-        else { AC.resume(); ACT.state = "playing"; document.body.classList.remove("paused"); }
-        refreshUI();
       }
+      refreshUI();
     }
 
     function step(d) {
@@ -1231,7 +814,7 @@
       var f = barF(e);
       if (mode === "file" && isFinite(audioL.duration)) {
         audioL.currentTime = f * audioL.duration; tCur.textContent = fmt(audioL.currentTime);
-      } else if (mode === "synth") { pendSeek = f; }
+      }
       paintBar(f);
     });
     prog.addEventListener("pointermove", function (e) {
@@ -1239,18 +822,16 @@
       var f = barF(e);
       if (mode === "file" && isFinite(audioL.duration)) {
         audioL.currentTime = f * audioL.duration; tCur.textContent = fmt(audioL.currentTime);
-      } else if (mode === "synth") { pendSeek = f; }
+      }
       paintBar(f);
     });
     ["pointerup", "pointercancel"].forEach(function (ev) {
       prog.addEventListener(ev, function () {
         dragging = false; prog.classList.remove("drag");
-        if (pendSeek != null && mode === "synth" && ACT.genre != null) { play(ACT.genre, ACT.i, pendSeek * ACT.dur); }
         pendSeek = null;
       });
     });
 
-    /* ---------- adding content ---------- */
     var fileIn = document.getElementById("fileIn"), pendG = null;
 
     function addFiles(g, files) {
@@ -1349,7 +930,6 @@
         });
     }
 
-    /* ---------- Internet Archive finder ---------- */
     var findModal = document.getElementById("findModal"),
       findIn = document.getElementById("findIn"),
       findRes = document.getElementById("findRes"),
@@ -1414,7 +994,6 @@
     findModal.addEventListener("click", function (e) { if (e.target === findModal) { closeFind(); } });
     findIn.addEventListener("keydown", function (e) { if (e.key === "Enter") { runFind(); } });
 
-    /* ---------- zone clicks ---------- */
     zonesEl.addEventListener("click", function (e) {
       var rm = e.target.closest(".rm");
       if (rm) { var tr = rm.closest(".track"); removeLocal(tr.dataset.g, +tr.dataset.i); return; }
@@ -1451,16 +1030,13 @@
       if (t.src && t.src.indexOf("blob:") === 0) { try { URL.revokeObjectURL(t.src); } catch (e) {} }
       if (mode === "file" && ACT.genre === g && ACT.i === i) { audioL.pause(); }
       if (mode === "yt" && ACT.genre === g && ACT.i === i) { closeYT(); }
-      var isOriginal = i < RAW[g].length;
       t.kind = null; t.local = false; t.offline = false;
       t.src = null; t.blob = null; t.yt = null; t.remoteUrl = null;
-      if (isOriginal) { t.title = t.origTitle; t.d = t.origD || t.d; }
-      else { t.title = ""; t.artist = ""; t.d = 0; }
+      t.title = ""; t.artist = ""; t.d = 0;
       renderZone(g); refreshUI();
-      toast("Removed — slot " + (i + 1) + " " + (isOriginal ? "restored" : "now empty"));
+      toast("Removed — slot " + (i + 1) + " now empty");
     }
 
-    /* ---------- drag & drop ---------- */
     var dropveil = document.getElementById("dropveil"),
       dvZone = document.getElementById("dvZone"),
       dragDepth = 0;
@@ -1491,7 +1067,6 @@
       if (files.length) { addFiles(activeZone, files); }
     });
 
-    /* ---------- restore saved items on boot ---------- */
     idbOpen().then(function (db) {
       idb = db;
       return idbAll();
@@ -1525,7 +1100,6 @@
       if (n) { toast(n + " saved item" + (n > 1 ? "s" : "") + " restored from this device"); }
     }).catch(function () {});
 
-    /* ---------- transport / keys ---------- */
     document.getElementById("btnPrev").onclick = function () { step(-1); };
     document.getElementById("btnNext").onclick = function () { step(1); };
     btnPlay.onclick = toggle;
@@ -1547,7 +1121,6 @@
       }
     });
 
-    /* ========== 7. VISUALIZER ========== */
     var viz = document.getElementById("viz"), vctx = viz.getContext("2d");
     var NB = 72, bars = new Float32Array(NB), tgt = new Float32Array(NB), vizOn = true;
     function sizeViz() {
@@ -1590,7 +1163,6 @@
       vctx.fillRect(0, h / 2 - 0.5, w, 1);
     }
 
-    /* ========== 8. LOOP + OBSERVERS ========== */
     (function loop() {
       if (ACT.genre != null) {
         if (mode === "file") {
@@ -1598,10 +1170,6 @@
             paintBar(audioL.currentTime / audioL.duration);
             tCur.textContent = fmt(audioL.currentTime);
           }
-        } else if (mode === "synth" && ACT.state === "playing" && AC) {
-          var el = AC.currentTime - ACT.start;
-          if (el >= ACT.dur) { step(1); }
-          else if (!dragging) { paintBar(Math.min(1, el / ACT.dur)); tCur.textContent = fmt(el); }
         }
       }
       vizFrame();
@@ -1617,8 +1185,6 @@
       });
     });
 
-    /* scroll reveal — low threshold so tall zones still trigger on phones,
-       plus a no-IO fallback that just shows everything */
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); } });
